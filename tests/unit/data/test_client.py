@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 import pytest
 import requests
 
-from rootcast.data.base_client import BaseClient
+from rootcast.data.client import BaseClient
 from rootcast.errors import AuthenticationError, ProviderAPIError
 
 

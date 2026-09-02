@@ -7,7 +7,7 @@ from typing import Any, Iterator
 
 import requests
 
-from rootcast.data.base_client import BaseClient
+from rootcast.data.client import BaseClient
 from rootcast.errors import MissingCredentialsError
 
 

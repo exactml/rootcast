@@ -1,0 +1,95 @@
+# Data-provider contracts.
+#
+# One top-level section per client under rootcast/data/providers/. Each API
+# an enabled client exposes gets its own entry: the request shape we send
+# and the response shape we get back. This is the map of what's available
+# and already wired up — a new provider or a new API on an existing one
+# gets a section here alongside the code, so the two never drift apart.
+
+clients:
+
+  massive:
+    enabled: true
+    base_url: https://api.massive.com
+    auth:
+      type: bearer
+      env_var: MASSIVE_API_KEY
+
+    apis:
+
+      list_tickers:
+        enabled: true
+        description: Reference data for ticker symbols supported by Massive.
+        method: GET
+        path: /v3/reference/tickers
+        request:
+          ticker:
+            type: string
+            required: false
+            description: Filter by a specific ticker symbol.
+          type:
+            type: string
+            required: false
+            description: Asset type classification.
+          market:
+            type: string
+            required: false
+            default: stocks
+            description: "Market category: stocks, crypto, fx, otc, indices."
+          exchange:
+            type: string
+            required: false
+            description: Exchange, as an ISO 10383 Market Identifier Code.
+          cik:
+            type: string
+            required: false
+            description: SEC Central Index Key.
+          date:
+            type: string
+            required: false
+            description: Historical snapshot date.
+          search:
+            type: string
+            required: false
+            description: Search terms within the ticker and/or company name.
+          active:
+            type: boolean
+            required: false
+            default: true
+            description: Trading status filter.
+          order:
+            type: string
+            required: false
+            description: Result ordering direction.
+          sort:
+            type: string
+            required: false
+            description: Field to order results by.
+          limit:
+            type: integer
+            required: false
+            default: 1000
+            max: 1000
+            description: Max results per page.
+        response:
+          count: integer
+          next_url: string
+          request_id: string
+          status: string
+          results:
+            - ticker: string
+              name: string
+              active: boolean
+              market: string
+              locale: string
+              type: string
+              primary_exchange: string
+              currency_name: string
+              currency_symbol: string
+              base_currency_name: string
+              base_currency_symbol: string
+              cik: string
+              composite_figi: string
+              share_class_figi: string
+              last_updated_utc: string
+              delisted_utc: string

@@ -19,6 +19,17 @@ after making one, so it doesn't have to be re-decided next time.
 - Frontend (when it exists) lives under a sibling `rootcast-ui/`, not
   nested inside `rootcast/`.
 
+## Data-provider contracts
+
+- `rootcast/data/contract.yaml` documents every provider client, section
+  by section (currently only `massive`). Each client section lists its
+  APIs one by one; each API entry has `enabled: true/false`, the request
+  params (structured: type/required/default/description), and the
+  response shape.
+- Kept alongside the code, not generated from it — when an API is added
+  or changed in a provider client, update its `contract.yaml` entry in
+  the same change.
+
 ## Error handling
 
 - TODO

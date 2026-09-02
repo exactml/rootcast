@@ -1,3 +1,5 @@
+# Copyright (C) Rootcast - All Rights Reserved
+
 """Ancestor class for data-provider REST clients."""
 
 from __future__ import annotations
@@ -18,13 +20,23 @@ class BaseClient:
 
     base_url: str
 
-    def __init__(self, session: requests.Session | None = None) -> None:
+    def __init__(
+        self,
+        session: requests.Session | None = None,
+    ) -> None:
+        """Initialize the client with an HTTP session."""
         self.session = session or requests.Session()
 
     def _headers(self) -> dict[str, str]:
+        """Return the auth headers for a request; subclasses must override."""
         raise NotImplementedError
 
-    def get(self, path: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+    def get(
+        self,
+        path: str,
+        params: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        """Send a GET request and return the decoded JSON response body."""
         url = path if path.startswith("http") else f"{self.base_url}{path}"
         response = self.session.get(
             url, params=params, headers=self._headers(), timeout=30

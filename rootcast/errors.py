@@ -1,3 +1,5 @@
+# Copyright (C) Rootcast - All Rights Reserved
+
 """Shared error hierarchy for rootcast."""
 
 

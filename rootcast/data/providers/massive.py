@@ -1,3 +1,5 @@
+# Copyright (C) Rootcast - All Rights Reserved
+
 """Client for the Massive (massive.com) market data REST API."""
 
 from __future__ import annotations
@@ -19,6 +21,7 @@ class MassiveClient(BaseClient):
         api_key: str | None = None,
         session: requests.Session | None = None,
     ) -> None:
+        """Configure API credentials and the underlying HTTP session."""
         super().__init__(session=session)
         self.api_key = api_key or os.environ.get("MASSIVE_API_KEY")
         if not self.api_key:
@@ -27,6 +30,7 @@ class MassiveClient(BaseClient):
             )
 
     def _headers(self) -> dict[str, str]:
+        """Return the bearer-token auth header for Massive requests."""
         return {"Authorization": f"Bearer {self.api_key}"}
 
     def list_tickers(

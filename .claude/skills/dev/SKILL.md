@@ -53,9 +53,38 @@ after making one, so it doesn't have to be re-decided next time.
 
 - TODO
 
+## Function / method signatures
+
+- Any function or method with more than one parameter (a bound method's
+  `self` counts, so one param beyond `self` is already "more than one")
+  breaks one parameter per line, each on its own line with a trailing
+  comma, closing paren aligned with `def`:
+  ```python
+  def __init__(
+      self,
+      session: requests.Session | None = None,
+  ) -> None:
+  ```
+  A method with only `self` (or a function with a single parameter) stays
+  on one line.
+
 ## Docstrings
 
 - Google or NumPy style.
+- Every method in production code (`rootcast/`) has a docstring: one line,
+  starting with an imperative action verb — `Retrieve`, `Return`, `Yield`,
+  `Configure`, `Send`, etc. — not "This method...".
+- Test functions are exempt — a descriptive test name (pytest convention)
+  is the documentation; don't add a redundant docstring on top of it.
+
+## Copyright header
+
+- Every `.py` file, including an otherwise-empty `__init__.py`, starts
+  with:
+  ```python
+  # Copyright (C) Rootcast - All Rights Reserved
+  ```
+  above the module docstring (if any).
 
 ## Environment & tooling
 

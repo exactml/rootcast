@@ -70,10 +70,20 @@ after making one, so it doesn't have to be re-decided next time.
 
 ## Docstrings
 
-- Google or NumPy style.
-- Every method in production code (`rootcast/`) has a docstring: one line,
-  starting with an imperative action verb — `Retrieve`, `Return`, `Yield`,
-  `Configure`, `Send`, etc. — not "This method...".
+- Google or NumPy style, content-wise.
+- Formatting: never a one-line `"""Summary."""`. Opening `"""` alone on
+  its own line, the text starts on the next line, closing `"""` alone on
+  its own line:
+  ```python
+  def get(self, path, params=None):
+      """
+      Send a GET request and return the decoded JSON response body.
+      """
+  ```
+  Applies to module, class, and method docstrings alike.
+- Every method in production code (`rootcast/`) has one, starting with an
+  imperative action verb — `Retrieve`, `Return`, `Yield`, `Configure`,
+  `Send`, etc. — not "This method...".
 - Test functions are exempt — a descriptive test name (pytest convention)
   is the documentation; don't add a redundant docstring on top of it.
 

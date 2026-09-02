@@ -1,6 +1,8 @@
 # Copyright (C) Rootcast - All Rights Reserved
 
-"""Registry of configured data-provider clients."""
+"""
+Registry of configured data-provider clients.
+"""
 
 from __future__ import annotations
 
@@ -12,5 +14,8 @@ class DataLayer:
         self,
         massive: MassiveClient | None = None,
     ) -> None:
-        """Configure the registry, defaulting to a client built from the environment."""
+        """
+        Configure the registry, defaulting to a client built from the
+        environment.
+        """
         self.massive = massive or MassiveClient()

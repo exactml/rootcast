@@ -1,23 +1,35 @@
 # Copyright (C) Rootcast - All Rights Reserved
 
-"""Shared error hierarchy for rootcast."""
+"""
+Shared error hierarchy for rootcast.
+"""
 
 
 class RootcastError(Exception):
-    """Base class for all rootcast errors."""
+    """
+    Base class for all rootcast errors.
+    """
 
 
 class DataProviderError(RootcastError):
-    """Base class for errors raised by a data-provider client."""
+    """
+    Base class for errors raised by a data-provider client.
+    """
 
 
 class MissingCredentialsError(DataProviderError):
-    """Raised when a provider client is missing required credentials."""
+    """
+    Raised when a provider client is missing required credentials.
+    """
 
 
 class AuthenticationError(DataProviderError):
-    """Raised when a provider rejects credentials (e.g. HTTP 401)."""
+    """
+    Raised when a provider rejects credentials (e.g. HTTP 401).
+    """
 
 
 class ProviderAPIError(DataProviderError):
-    """Raised when a provider returns an unexpected/error response."""
+    """
+    Raised when a provider returns an unexpected/error response.
+    """

@@ -1,6 +1,8 @@
 # Copyright (C) Rootcast - All Rights Reserved
 
-"""Ancestor class for data-provider REST clients."""
+"""
+Ancestor class for data-provider REST clients.
+"""
 
 from __future__ import annotations
 
@@ -12,7 +14,8 @@ from rootcast.errors import AuthenticationError, ProviderAPIError
 
 
 class BaseClient:
-    """Shared request/error handling for provider clients.
+    """
+    Shared request/error handling for provider clients.
 
     Subclasses set `base_url` and implement `_headers()`. Other transports
     (POST, websocket) can be added here later without touching subclasses.
@@ -24,11 +27,15 @@ class BaseClient:
         self,
         session: requests.Session | None = None,
     ) -> None:
-        """Initialize the client with an HTTP session."""
+        """
+        Initialize the client with an HTTP session.
+        """
         self.session = session or requests.Session()
 
     def _headers(self) -> dict[str, str]:
-        """Return the auth headers for a request; subclasses must override."""
+        """
+        Return the auth headers for a request; subclasses must override.
+        """
         raise NotImplementedError
 
     def get(
@@ -36,7 +43,9 @@ class BaseClient:
         path: str,
         params: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
-        """Send a GET request and return the decoded JSON response body."""
+        """
+        Send a GET request and return the decoded JSON response body.
+        """
         url = path if path.startswith("http") else f"{self.base_url}{path}"
         response = self.session.get(
             url, params=params, headers=self._headers(), timeout=30

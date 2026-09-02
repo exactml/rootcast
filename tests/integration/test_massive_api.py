@@ -1,6 +1,7 @@
 # Copyright (C) Rootcast - All Rights Reserved
 
-"""Integration tests that hit the real Massive API.
+"""
+Integration tests that hit the real Massive API.
 
 Skipped unless MASSIVE_API_KEY is set, so they don't run in environments
 without a key (e.g. CI without a configured secret).

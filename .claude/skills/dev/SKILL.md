@@ -26,12 +26,17 @@ after making one, so it doesn't have to be re-decided next time.
 ## Testing
 
 - Framework: pytest.
-- Split into `tests/unit/` (mocked, no network) and `tests/integration/`
-  (hit a real external service, e.g. a live provider API) — each mirrors
-  `rootcast/`'s package structure inside it.
+- Split into `tests/unit/` and `tests/integration/`:
+  - `tests/unit/` is mocked, no network, and mirrors `rootcast/`'s package
+    structure (one test file per module/class under test).
+  - `tests/integration/` hits real downstream services and is *not*
+    class-mirrored — it's flat, one file per compound action / downstream
+    service under test, named for what's being exercised (e.g.
+    `test_massive_api.py`), not for the internal class that happens to
+    call it.
 - Integration tests should skip themselves when required credentials
   aren't set, so a bare `pytest` run stays green without secrets (see
-  `tests/integration/data/providers/test_massive_live.py`).
+  `tests/integration/test_massive_api.py`).
 
 ## Naming
 

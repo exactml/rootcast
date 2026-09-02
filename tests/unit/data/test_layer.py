@@ -1,3 +1,5 @@
+# Copyright (C) Rootcast - All Rights Reserved
+
 from unittest.mock import MagicMock
 
 from rootcast.data.layer import DataLayer

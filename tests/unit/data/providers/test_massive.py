@@ -1,3 +1,5 @@
+# Copyright (C) Rootcast - All Rights Reserved
+
 from unittest.mock import MagicMock
 
 import pytest
@@ -9,7 +11,10 @@ from rootcast.errors import AuthenticationError, MissingCredentialsError
 BASE_URL = MassiveClient.base_url
 
 
-def make_response(status_code: int, payload: dict | None = None) -> MagicMock:
+def make_response(
+    status_code: int,
+    payload: dict | None = None,
+) -> MagicMock:
     response = MagicMock(spec=requests.Response)
     response.status_code = status_code
     response.ok = status_code < 400

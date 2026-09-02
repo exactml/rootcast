@@ -1,0 +1,48 @@
+---
+name: dev
+description: "Design criteria and engineering conventions for rootcast — architecture principles, module/package layout, error-handling and testing conventions specific to this project. Use when writing, reviewing, or designing new rootcast code."
+---
+
+# dev
+
+Design criteria for rootcast. This is the place to check before making an
+architectural call in this repo — and the place to add a new rule right
+after making one, so it doesn't have to be re-decided next time.
+
+## Architecture
+
+- TODO
+
+## Module / package layout
+
+- Backend lives under `rootcast/`.
+- Frontend (when it exists) lives under a sibling `rootcast-ui/`, not
+  nested inside `rootcast/`.
+
+## Error handling
+
+- TODO
+
+## Testing
+
+- Framework: pytest.
+- Split into `tests/unit/` (mocked, no network) and `tests/integration/`
+  (hit a real external service, e.g. a live provider API) — each mirrors
+  `rootcast/`'s package structure inside it.
+- Integration tests should skip themselves when required credentials
+  aren't set, so a bare `pytest` run stays green without secrets (see
+  `tests/integration/data/providers/test_massive_live.py`).
+
+## Naming
+
+- TODO
+
+## Docstrings
+
+- Google or NumPy style.
+
+## Environment & tooling
+
+- Env/package management: `uv` (this repo's `.venv` has no `pip` —
+  install/sync with `uv pip install -e ".[dev]" --python .venv/bin/python`).
+- Linting: ruff (`ruff check .`).

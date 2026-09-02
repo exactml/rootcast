@@ -53,6 +53,11 @@ after making one, so it doesn't have to be re-decided next time.
 
 - TODO
 
+## String formatting
+
+- f-strings (`f"...{value}..."`) only. No `.format()`, no `%`-formatting,
+  no manual `+` concatenation to interpolate a value into a string.
+
 ## Function / method signatures
 
 - Any function or method with more than one parameter (a bound method's

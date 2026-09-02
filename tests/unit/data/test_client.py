@@ -75,3 +75,10 @@ def test_get_raises_provider_api_error_on_other_failure():
     client = _DummyClient(session=session)
     with pytest.raises(ProviderAPIError):
         client.get("/ping")
+
+
+def test_load_contract_returns_massive_section():
+    contract = BaseClient.load_contract("massive")
+
+    assert contract["base_url"] == "https://api.massive.com"
+    assert "list_tickers" in contract["apis"]

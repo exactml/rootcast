@@ -12,12 +12,11 @@ from typing import Any, Iterator
 import requests
 
 from rootcast.data.client import BaseClient
-from rootcast.data.contract import client_contract
 from rootcast.errors import MissingCredentialsError
 
 
 class MassiveClient(BaseClient):
-    _contract = client_contract("massive")
+    _contract = BaseClient.load_contract("massive")
     base_url = _contract["base_url"]
 
     def __init__(

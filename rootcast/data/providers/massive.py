@@ -12,11 +12,13 @@ from typing import Any, Iterator
 import requests
 
 from rootcast.data.client import BaseClient
+from rootcast.data.contract import client_contract
 from rootcast.errors import MissingCredentialsError
 
 
 class MassiveClient(BaseClient):
-    base_url = "https://api.massive.com"
+    _contract = client_contract("massive")
+    base_url = _contract["base_url"]
 
     def __init__(
         self,
@@ -56,7 +58,7 @@ class MassiveClient(BaseClient):
             "limit": limit,
             **filters,
         }
-        url: str | None = "/v3/reference/tickers"
+        url: str | None = self._contract["apis"]["list_tickers"]["path"]
         while url:
             payload = self.get(url, params=params)
             yield from payload.get("results", [])

@@ -29,6 +29,14 @@ after making one, so it doesn't have to be re-decided next time.
 - Kept alongside the code, not generated from it — when an API is added
   or changed in a provider client, update its `contract.yaml` entry in
   the same change.
+- Client modules read the contract rather than hardcoding it: no
+  `base_url = "https://..."` or a literal endpoint path (e.g.
+  `"/v3/reference/tickers"`) in a provider client. Load it via
+  `rootcast.data.contract.client_contract(<client name>)` instead (see
+  `MassiveClient` for the pattern — `base_url` and each endpoint path
+  come from its `_contract` class attribute). The only thing still
+  named in Python is the client's own key into `contract.yaml`'s
+  `clients` section.
 
 ## Error handling
 

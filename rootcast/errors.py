@@ -33,3 +33,9 @@ class ProviderAPIError(DataProviderError):
     """
     Raised when a provider returns an unexpected/error response.
     """
+
+
+class ClientDisabledError(DataProviderError):
+    """
+    Raised when a client or one of its APIs is disabled in contract.yaml.
+    """

@@ -13,7 +13,7 @@ from typing import Any
 import requests
 import yaml
 
-from rootcast.errors import AuthenticationError, ProviderAPIError
+from rootcast.errors import AuthenticationError, ClientDisabledError, ProviderAPIError
 
 _CONTRACT_PATH = Path(__file__).parent / "contract.yaml"
 
@@ -58,6 +58,17 @@ class BaseClient:
         Return the auth headers for a request; subclasses must override.
         """
         raise NotImplementedError
+
+    def _require_enabled(
+        self,
+        section: dict[str, Any],
+        name: str,
+    ) -> None:
+        """
+        Raise ClientDisabledError if the given contract section is disabled.
+        """
+        if not section.get("enabled", True):
+            raise ClientDisabledError(f"{name} is disabled in contract.yaml.")
 
     def get(
         self,

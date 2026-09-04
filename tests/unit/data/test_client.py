@@ -6,7 +6,7 @@ import pytest
 import requests
 
 from rootcast.data.client import BaseClient
-from rootcast.errors import AuthenticationError, ProviderAPIError
+from rootcast.errors import AuthenticationError, ClientDisabledError, ProviderAPIError
 
 
 class _DummyClient(BaseClient):
@@ -82,3 +82,22 @@ def test_load_contract_returns_massive_section():
 
     assert contract["base_url"] == "https://api.massive.com"
     assert "list_tickers" in contract["apis"]
+
+
+def test_require_enabled_passes_when_enabled():
+    client = _DummyClient(session=MagicMock())
+
+    client._require_enabled({"enabled": True}, "test")
+
+
+def test_require_enabled_passes_when_missing_key():
+    client = _DummyClient(session=MagicMock())
+
+    client._require_enabled({}, "test")
+
+
+def test_require_enabled_raises_when_disabled():
+    client = _DummyClient(session=MagicMock())
+
+    with pytest.raises(ClientDisabledError):
+        client._require_enabled({"enabled": False}, "test")

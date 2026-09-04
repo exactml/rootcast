@@ -39,6 +39,12 @@ after making one, so it doesn't have to be re-decided next time.
 - The contract loader lives on `BaseClient` itself
   (`rootcast/data/client.py`), not in a separate module — reading the
   contract is ancestor-client behavior, not a standalone concern.
+- `enabled: false` is enforced, not just documentation: a client checks
+  its own client-level section on `__init__` and each API's section
+  before that API runs, via `BaseClient._require_enabled(section, name)`
+  — raises `ClientDisabledError` (a caller, e.g. a future UI, catches
+  this and shows "disabled" rather than a raw request failure). A
+  missing `enabled` key defaults to enabled.
 
 ## Error handling
 

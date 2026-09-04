@@ -28,6 +28,7 @@ class MassiveClient(BaseClient):
         Configure API credentials and the underlying HTTP session.
         """
         super().__init__(session=session)
+        self._require_enabled(self._contract, "massive")
         self.api_key = api_key or os.environ.get("MASSIVE_API_KEY")
         if not self.api_key:
             raise MissingCredentialsError(
@@ -51,6 +52,9 @@ class MassiveClient(BaseClient):
         """
         Yield ticker reference records, paginating through every result page.
         """
+        self._require_enabled(
+            self._contract["apis"]["list_tickers"], "massive.list_tickers"
+        )
         params: dict[str, Any] | None = {
             "market": market,
             "active": active,

@@ -6,7 +6,11 @@ import pytest
 import requests
 
 from rootcast.data.providers.massive import MassiveClient
-from rootcast.errors import AuthenticationError, MissingCredentialsError
+from rootcast.errors import (
+    AuthenticationError,
+    ClientDisabledError,
+    MissingCredentialsError,
+)
 
 BASE_URL = MassiveClient.base_url
 
@@ -79,4 +83,32 @@ def test_list_tickers_raises_on_401():
 
     client = MassiveClient(api_key="bad-key", session=session)
     with pytest.raises(AuthenticationError):
+        list(client.list_tickers())
+
+
+def test_init_raises_when_client_disabled(monkeypatch):
+    monkeypatch.setattr(
+        MassiveClient, "_contract", {**MassiveClient._contract, "enabled": False}
+    )
+
+    with pytest.raises(ClientDisabledError):
+        MassiveClient(api_key="test-key")
+
+
+def test_list_tickers_raises_when_api_disabled(monkeypatch):
+    disabled_apis = {
+        **MassiveClient._contract["apis"],
+        "list_tickers": {
+            **MassiveClient._contract["apis"]["list_tickers"],
+            "enabled": False,
+        },
+    }
+    monkeypatch.setattr(
+        MassiveClient,
+        "_contract",
+        {**MassiveClient._contract, "apis": disabled_apis},
+    )
+    client = MassiveClient(api_key="test-key", session=MagicMock())
+
+    with pytest.raises(ClientDisabledError):
         list(client.list_tickers())
